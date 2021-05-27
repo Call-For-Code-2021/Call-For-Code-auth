@@ -1,15 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
 import login from './request/login';
-import { Route } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-function App() {
+const App = () => {
   return (
-      <div>
-        {/*<Route path="/" component={Home} />*/}
-        <Route path="/login" component={login
-        } />
-      </div>
+      <BrowserRouter>
+        <div className="content">
+            <Switch>
+                <Route exact path="/" component={login} />
+            </Switch>
+        </div>
+      </BrowserRouter>
   );
 }
 
