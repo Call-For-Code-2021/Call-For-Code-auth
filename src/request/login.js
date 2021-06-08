@@ -1,19 +1,10 @@
 import React from "react";
 import axios from 'axios'
 
-async function user_login(id, password){
-    axios({
-        url: "http://charong.herokuapp.com/auth/login",
-        method: "post",
-        data: {
-            id: id,
-            password: password
-        }
-    })//데이터 구조 확인하기
-}
+import React, { useState } from 'react'  //useState를 사용하기 위하여 import
 
 async function user_get(){
-    axios.get("https://charong.herokuapp.com/auth/login")
+    axios.get("https://charong.herokuapp.com/auth/login?id=asdffds")
         .then((response) => {
             console.log(response.data);
         })
@@ -41,13 +32,66 @@ async function user_get(){
     );
 }
 
+async function user_register(id, password){
+    console.log(id)
+    console.log(password)
+    await axios({
+        method: "post",
+        url: "https://charong.herokuapp.com/auth/login",
+        data: {
+            id:id,
+            password:password
+        }
+    });
+}
+
 const login = () => {
+
+    async function user_login(id, password){
+        const [inputs, setInputs] = useState({
+            id: '',
+            password: '',
+        })
+        const {id, password} = inputs
+
+        const onChange = (e) => {
+            const nextInputs = {
+                ...inputs,
+                [id]: value,
+            }
+            setInputs(nextInputs)
+        }
+        const onReset = () => {
+            const resetInputs = {
+                id: '',
+                password: '',
+            }
+            setInputs(resetInputs)
+        }
+    }
+
     return (
         <div>
-            <input placeholder="ID"/>
-            <input type="password"/>
+            <input
+                name="id"
+                placeholder="ID"
+                onChange={onChange}
+                value={id}
+                />
+            <input
+                name="password"
+                type="password"
+                onChange={onChange}
+                value={password}
+            />
             <button type="submit" onClick={user_login}>로그인</button>
+            <button type="submit" onClick={user_register}>회원가입</button>
             <button type="submit" onClick={user_get}>확인</button>
+            <button onClick={onReset}>초기화</button>
+            <div>
+                <b>id, pw : </b>
+                {id}:({password})
+            </div>
         </div>
     )//알아서 input값 받아다가 function/auth에 있는 함수들 요청 할 것
 }
