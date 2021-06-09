@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 
 // async function user_get(){
@@ -30,12 +30,10 @@ import axios from 'axios'
 //     );
 // }
 
-var id;
-var password;
+var id = document.getElementById("id").value;
+var password = document.getElementById("password").value;
 
-async function user_register(){
-    var id = document.getElementById("id").value;
-    var password = document.getElementById("password").value;
+async function user_register(id, password){
     console.log(id)
     console.log(password)
     await axios({
@@ -49,13 +47,43 @@ async function user_register(){
 }
 
 const Login = () => {
+
+    // const [users, setUsers] = useState(null);
+    // const [loading, setLoading] = useState(false);
+    // const [error, setError] = useState(null);
+    //
+    // useEffect(() => {
+    //     const fetchUsers = async () => {
+    //         try {
+    //             // 요청이 시작 할 때 error 와 users 를 초기화
+    //             setError(null);
+    //             setUsers(null);
+    //             // loading 상태를 true 로
+    //             setLoading(true);
+    //             const response = await axios.get(
+    //                 'https://charong.herokuapp.com/auth/login?id='
+    //             );
+    //             setUsers(response.data); // 데이터는 response.data 안에.
+    //             console.log(response.data);
+    //         } catch (e) {
+    //             setError(e);
+    //         }
+    //         setLoading(false);
+    //     };
+    //
+    //     fetchUsers();
+    // }, []);
+    // if (loading) return <div>로딩중..</div>;
+    // if (error) return <div>에러가 발생했습니다</div>;
+    // if (!users) return null;
+
     return (
         <div>
             <input
                 name="id"
                 placeholder="ID"
                 id={id}
-                />
+            />
             <input
                 name="password"
                 type="password"
@@ -69,7 +97,7 @@ const Login = () => {
             {/*    {users.map(user => (<div>{user.name}</div>))}*/}
             {/*</div>*/}
         </div>
-    )
+    )//알아서 input값 받아다가 function/auth에 있는 함수들 요청 할 것
 }
 
 export default Login;
