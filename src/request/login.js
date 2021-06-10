@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios'
+import axios from 'axios';
 
 // async function user_get(){
 //     axios.get("https://charong.herokuapp.com/auth/login?id=asdffds")
